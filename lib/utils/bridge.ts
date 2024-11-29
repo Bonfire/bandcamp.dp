@@ -1,8 +1,8 @@
 import type { BaseExtractor } from "discord-player";
 import bcfetch from "bandcamp-fetch"
 
-export const bridge: BaseExtractor['bridge'] = async (track, sourceExt) => {
-    const query = sourceExt?.createBridgeQuery(track) || `${track.author} ${track.source === "youtube" ? track.cleanTitle : track.title}`
+export const bridge: BaseExtractor['bridge'] = async (track, _) => {
+    const query = `${track.author} ${track.source === "youtube" ? track.cleanTitle : track.title}`
 
     const search = await bcfetch.search.tracks({query})
     if(search.items.length === 0) return null
