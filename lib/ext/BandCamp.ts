@@ -1,13 +1,18 @@
 import { BaseExtractor, ExtractorInfo, ExtractorSearchContext, ExtractorStreamable, Track } from "discord-player"
 import bcfetch from "bandcamp-fetch"
+import { bridge } from "../utils/bridge";
 
 export interface BandCampExtOpt {
     cookie?: string;
 }
 
 export class BandCampExtractor extends BaseExtractor<BandCampExtOpt> {
+    static identifier = "com.retrouser955.discord-player.bandcamp" as const
+
     async activate(): Promise<void> {
-        bcfetch.setCookie(this.options.cookie)
+        if(this.options.cookie) {
+            bcfetch.setCookie(this.options.cookie)
+        }
     }
 
     emptyResponse(): ExtractorInfo {
@@ -23,18 +28,10 @@ export class BandCampExtractor extends BaseExtractor<BandCampExtOpt> {
     }
 
     async bridge(track: Track, sourceExtractor: BaseExtractor | null): Promise<ExtractorStreamable | null> {
-        const query = sourceExtractor?.createBridgeQuery(track) || `${track.author} ${track.source === "youtube" ? track.cleanTitle : track.title}`
-
         try {
-            const search = await bcfetch.search.tracks({query})
-            if(search.items.length === 0) return null
-            const info = await bcfetch.track.getInfo({
-                trackUrl: search.items[0].url
-            })
-            const streamUrl = info.streamUrlHQ || info.streamUrl
-            return streamUrl || null
+            return bridge(track, sourceExtractor)
         } catch (error) {
-            this.context.player.debug("Bridge failed. The error is as follows\n" + error)
+            this.context.player.debug("Failed due to following error(s)\n" + error)
             return null
         }
     }
