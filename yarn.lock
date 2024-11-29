@@ -535,9 +535,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bandcamp.db@workspace:.":
+"bandcamp.dp@workspace:.":
   version: 0.0.0-use.local
-  resolution: "bandcamp.db@workspace:."
+  resolution: "bandcamp.dp@workspace:."
   dependencies:
     bandcamp-fetch: "npm:^2.0.0"
     discord-player: "npm:^6.7.1"

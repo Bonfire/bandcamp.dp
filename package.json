@@ -1,7 +1,8 @@
 {
   "name": "bandcamp.dp",
   "description": "A bandcamp extractor for discord-player",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
+  "main": "dist/index.js",
   "packageManager": "yarn@4.5.3",
   "devDependencies": {
     "discord-player": "^6.7.1",
