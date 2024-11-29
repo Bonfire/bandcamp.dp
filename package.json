@@ -1,4 +1,18 @@
 {
-  "name": "bandcamp.db",
-  "packageManager": "yarn@4.5.3"
+  "name": "bandcamp.dp",
+  "description": "A bandcamp extractor for discord-player",
+  "version": "0.0.1-alpha.0",
+  "packageManager": "yarn@4.5.3",
+  "devDependencies": {
+    "discord-player": "^6.7.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "bandcamp-fetch": "^2.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepare": "npm run build"
+  }
 }
