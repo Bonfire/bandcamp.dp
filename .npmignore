@@ -1,2 +1,5 @@
 .yarn/*
 lib/*
+.yarnrc.yml
+tsconfig.json
+tsup.config.ts
