@@ -15,16 +15,9 @@ export class BandCampExtractor extends BaseExtractor<BandCampExtOpt> {
         }
     }
 
-    emptyResponse(): ExtractorInfo {
-        return {
-            playlist: null,
-            tracks: []
-        }
-    }
-
     async handle(_query: string, _context: ExtractorSearchContext): Promise<ExtractorInfo> {
         // TODO: IMPLEMENT THIS
-        return this.emptyResponse()
+        return this.createResponse() // empty response
     }
 
     async bridge(track: Track, sourceExtractor: BaseExtractor | null): Promise<ExtractorStreamable | null> {
