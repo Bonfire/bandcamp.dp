@@ -71,14 +71,12 @@ export class BandCampExtractor extends BaseExtractor<BandCampExtOpt> {
 
       for (const albumTrack of albumTracks) {
         if (albumTrack.url) {
-          await this.fetchBandcampTrack(albumTrack.url).then(
-            (bandcampTrack) => {
-              if (!bandcampTrack) return;
+          const bandcampTrack = await this.fetchBandcampTrack(albumTrack.url);
 
-              bandcampTrack.playlist = playlistInfo;
-              fetchedTracks.push(bandcampTrack);
-            }
-          );
+          if (!bandcampTrack) continue;
+
+          bandcampTrack.playlist = playlistInfo;
+          fetchedTracks.push(bandcampTrack);
         }
       }
 
