@@ -1,8 +1,10 @@
+const bandcampRegex = /https:\/\/.*\.bandcamp\.com\//;
+
 export function isBandcampURL(query: string) {
   try {
     const parsedURL = new URL(query.trim());
 
-    if (parsedURL.hostname.endsWith("bandcamp.com")) {
+    if (bandcampRegex.test(parsedURL.toString())) {
       return true;
     }
   } catch {
