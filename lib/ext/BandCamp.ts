@@ -33,10 +33,6 @@ export class BandCampExtractor extends BaseExtractor<BandCampExtOpt> {
     query: string,
     context: ExtractorSearchContext
   ): Promise<ExtractorInfo> {
-    if (!isBandcampURL(query)) {
-      return this.createResponse();
-    }
-
     if (query.includes("/track/")) {
       const trackSearch = await this.fetchBandcampTrack(query).catch(() => {
         return this.createResponse();
