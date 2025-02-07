@@ -1,26 +1,16 @@
-import { BandcampFetch } from "bandcamp-fetch";
+import bcfetch from "bandcamp-fetch";
 import type { BaseExtractor } from "discord-player";
 
 export const bridge: BaseExtractor["bridge"] = async (track, _) => {
-  const matchingTrack = await new BandcampFetch().limiter.track.getInfo({
-    trackUrl: track.url,
+  const query = `${track.author} ${
+    track.source === "youtube" ? track.cleanTitle : track.title
+  }`;
+
+  const search = await bcfetch.search.tracks({ query });
+  if (search.items.length === 0) return null;
+  const info = await bcfetch.track.getInfo({
+    trackUrl: search.items[0].url,
   });
-
-  if (!matchingTrack) return null;
-
-  const bandcampUrlTest = await new BandcampFetch().limiter.stream.test(
-    matchingTrack.streamUrlHQ || matchingTrack.streamUrl || ""
-  );
-
-  if (!bandcampUrlTest.ok) {
-    const refreshedUrl = await new BandcampFetch().limiter.stream.refresh(
-      track.url
-    );
-
-    if (!refreshedUrl) return null;
-
-    return refreshedUrl;
-  }
-
-  return matchingTrack.streamUrlHQ || matchingTrack.streamUrl || null;
+  const streamUrl = info.streamUrlHQ || info.streamUrl;
+  return streamUrl || null;
 };
