@@ -19,7 +19,6 @@ export class BandCampExtractor extends BaseExtractor<BandCampExtOpt> {
   readonly bandcampFetch = new BandcampFetch();
   readonly trackFetcher = this.bandcampFetch.limiter.track;
   readonly albumFetcher = this.bandcampFetch.limiter.album;
-  readonly bandcampSearch = this.bandcampFetch.limiter.search;
 
   static identifier = "com.retrouser955.discord-player.bandcamp" as const;
 
