@@ -1,14 +1,11 @@
-const bandcampTrack = /(^https:)\/\/(www\.)?(.*\.)?bandcamp.com\/track\/.*/;
-const bandcampAlbum = /(^https:)\/\/(www\.)?(.*\.)?bandcamp.com\/album\/.*/;
+const bandcampURL =
+  /(^https:)\/\/(www\.)?(.*\.)?bandcamp.com\/(track|album)\/.*/;
 
 export function isBandcampURL(query: string) {
   try {
     const parsedURL = new URL(query.trim());
 
-    if (
-      bandcampTrack.test(parsedURL.toString()) ||
-      bandcampAlbum.test(parsedURL.toString())
-    ) {
+    if (bandcampURL.test(parsedURL.toString())) {
       return true;
     }
   } catch {
